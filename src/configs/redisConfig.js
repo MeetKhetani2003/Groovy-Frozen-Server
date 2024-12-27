@@ -9,10 +9,12 @@ export const redisClient = createClient({
   url: `redis://default:${redisPassword}@${redisHost}:${redisPort}`
 });
 
-redisClient.on('connect');
+redisClient.on('connect', () => {
+  console.log('Connected to Redis Cloud');
+});
 
 redisClient.on('error', (err) => {
-  throw new Error(`Redis error: ${err}`);
+  console.error('Redis error:', err);
 });
 
 await redisClient.connect(); // Ensure the connection is established

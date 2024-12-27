@@ -1,20 +1,19 @@
+import { redisClient } from '../configs/redisConfig.js';
+import { sendOtpMail } from '../middlewares/mailer.js';
+import User from '../models/User.js';
+import { userRepository } from '../repositories/userRepository.js';
 import {
   generateResetPasswordToken,
   generateToken,
   verifyResetPasswordToken
 } from '../utils/commons/jwt.js';
+// import crypto from 'crypto';
+import { generateOtp } from '../utils/commons/otp.js';
 import {
   comparePassword,
   hashPassword
 } from '../utils/commons/passsordHash.js';
-// import crypto from 'crypto';
-
-import { generateOtp } from '../utils/commons/otp.js';
 import ValidationError from '../utils/Errors/validationError.js';
-import { redisClient } from '../configs/redisConfig.js';
-import { sendOtpMail } from '../middlewares/mailer.js';
-import User from '../models/User.js';
-import { userRepository } from '../repositories/userRepository.js';
 import { createCart, updateCartUser } from './cartService.js';
 
 export const signupUser = async (data) => {

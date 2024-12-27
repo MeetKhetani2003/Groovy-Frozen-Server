@@ -9,7 +9,8 @@ const DBURI =
 export const connectDB = async () => {
   try {
     await mongoose.connect(DBURI);
+    console.log('Connected to MongoDB');
   } catch (error) {
-    throw new Error('Error Occured while connecting to MongoDB', error);
+    console.error('Error connecting to MongoDB:', error);
   }
 };

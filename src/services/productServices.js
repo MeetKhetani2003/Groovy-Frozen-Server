@@ -1,6 +1,6 @@
-import ValidationError from '../utils/Errors/validationError.js';
 import { cloudinaryInstance } from '../configs/cloudinaryConfig.js';
 import { productRepository } from '../repositories/productRepository.js';
+import ValidationError from '../utils/Errors/validationError.js';
 
 export const createProductService = async (data) => {
   try {

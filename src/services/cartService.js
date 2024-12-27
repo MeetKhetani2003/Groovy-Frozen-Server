@@ -1,6 +1,6 @@
-import ValidationError from '../utils/Errors/validationError.js';
 import { cartRepository } from '../repositories/CartRepository.js';
 import { productRepository } from '../repositories/productRepository.js';
+import ValidationError from '../utils/Errors/validationError.js';
 
 export const createCart = async () => {
   try {

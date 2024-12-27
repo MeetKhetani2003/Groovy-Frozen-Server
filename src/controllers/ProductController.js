@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 import {
   addStockQuantityService,
   createProductService,
@@ -10,7 +12,6 @@ import {
   errorResponse,
   successResponse
 } from '../utils/customResponses/customResponses.js';
-import { StatusCodes } from 'http-status-codes';
 
 export const createProductController = async (req, res) => {
   try {

@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 import {
   forgotPassword,
   getAllUsersService,
@@ -11,8 +13,6 @@ import {
   errorResponse,
   successResponse
 } from '../utils/customResponses/customResponses.js';
-import { StatusCodes } from 'http-status-codes';
-
 import ValidationError from '../utils/Errors/validationError.js';
 
 export const signupController = async (req, res) => {
