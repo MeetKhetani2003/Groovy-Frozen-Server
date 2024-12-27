@@ -1,6 +1,6 @@
+import ValidationError from '../utils/Errors/validationError.js';
 import { cartRepository } from '../repositories/CartRepository.js';
 import { productRepository } from '../repositories/productRepository.js';
-import ValidationError from '../utils/Errors/validationError.js';
 
 export const createCart = async () => {
   try {
@@ -23,7 +23,6 @@ export const updateCartUser = async (cartId, data) => {
     throw new ValidationError(error.message);
   }
 };
-
 
 export const addProductToCartService = async (
   userId,
@@ -90,8 +89,6 @@ export const checkoutCartService = async (cartId, data) => {
       subtotal: checkoutResult.subtotal
     };
   } catch (error) {
-    console.log(error);
-
     throw new Error(error.message);
   }
 };

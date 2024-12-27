@@ -27,7 +27,6 @@ export const paymentVerification = async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
-    console.log('MetaData', req.body, 'Body', req.body.metadata);
 
     // Validate request body
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
@@ -58,7 +57,8 @@ export const paymentVerification = async (req, res) => {
         .json({ success: false, message: 'Payment verification failed' });
     }
   } catch (error) {
-    console.log('Error verifying payment:', error);
-    res.status(500).json({ success: false, error: 'Failed to verify payment' });
+    res
+      .status(500)
+      .json({ success: false, error: 'Failed to verify payment', data: error });
   }
 };

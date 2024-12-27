@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', apiRouter);
 
 app.listen(VariablesConfig.PORT, () => {
-  console.log(`Server running on port ${VariablesConfig.PORT}`);
   connectDB();
 });
 

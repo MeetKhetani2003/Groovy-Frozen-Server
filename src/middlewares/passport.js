@@ -1,18 +1,17 @@
-import 'dotenv/config';
-
-import session from 'express-session';
-import passport from 'passport';
-import FacebookStrategy from 'passport-facebook';
-import GoogleStrategy from 'passport-google-oauth20';
-
 import {
   facebook,
   google,
   VariablesConfig
 } from '../configs/variablesConfig.js';
+import session from 'express-session';
+import passport from 'passport';
+import FacebookStrategy from 'passport-facebook';
+import GoogleStrategy from 'passport-google-oauth20';
+
+import 'dotenv/config';
+import { generateToken } from '../utils/commons/jwt.js';
 import { userRepository } from '../repositories/userRepository.js'; // Assume you have a repository for DB operations
 import { createCart, updateCartUser } from '../services/cartService.js';
-import { generateToken } from '../utils/commons/jwt.js';
 
 export const initPassport = (app) => {
   app.use(
@@ -36,7 +35,6 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log(profile);
         const formattedProfile = formatFB(profile._json);
         const user = await findOrCreateUser(formattedProfile);
         done(null, user);
@@ -52,7 +50,6 @@ passport.use(
     google,
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log(profile);
         const formattedProfile = formatGoogle(profile._json);
         const user = await findOrCreateUser(formattedProfile); // Handle DB logic
 
@@ -69,8 +66,6 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
 const formatGoogle = (profile) => {
-  console.log('profile', profile);
-
   return {
     username: `${profile.given_name}  ${profile.family_name}`,
     email: profile.email,

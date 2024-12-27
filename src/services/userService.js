@@ -1,21 +1,22 @@
-// import crypto from 'crypto';
-
-import { redisClient } from '../configs/redisConfig.js';
-import { sendOtpMail } from '../middlewares/mailer.js';
-import User from '../models/User.js';
-import { userRepository } from '../repositories/userRepository.js';
 import {
   generateResetPasswordToken,
   generateToken,
   verifyResetPasswordToken
 } from '../utils/commons/jwt.js';
-import { generateOtp } from '../utils/commons/otp.js';
 import {
   comparePassword,
   hashPassword
 } from '../utils/commons/passsordHash.js';
+// import crypto from 'crypto';
+
+import { generateOtp } from '../utils/commons/otp.js';
 import ValidationError from '../utils/Errors/validationError.js';
+import { redisClient } from '../configs/redisConfig.js';
+import { sendOtpMail } from '../middlewares/mailer.js';
+import User from '../models/User.js';
+import { userRepository } from '../repositories/userRepository.js';
 import { createCart, updateCartUser } from './cartService.js';
+
 export const signupUser = async (data) => {
   try {
     const isUserAlreadyExist = await userRepository.getOne({
@@ -144,8 +145,6 @@ export const getAllUsersService = async () => {
 
 export const updateUserService = async (id, data) => {
   try {
-    console.log(id, data);
-
     const user = await User.findByIdAndUpdate(id, data, { new: true });
     if (!user) {
       throw new ValidationError('User not found');
@@ -153,8 +152,6 @@ export const updateUserService = async (id, data) => {
     await user.save();
     return user;
   } catch (error) {
-    console.log(error);
-
     throw new ValidationError(error.message);
   }
 };

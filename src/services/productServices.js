@@ -1,6 +1,6 @@
+import ValidationError from '../utils/Errors/validationError.js';
 import { cloudinaryInstance } from '../configs/cloudinaryConfig.js';
 import { productRepository } from '../repositories/productRepository.js';
-import ValidationError from '../utils/Errors/validationError.js';
 
 export const createProductService = async (data) => {
   try {
@@ -68,8 +68,6 @@ export const addStockQuantityService = async (id, quantity) => {
     }
     return product;
   } catch (error) {
-    console.log('Service', error);
-
     throw new ValidationError(error.message);
   }
 };
@@ -80,8 +78,6 @@ const extractPublicId = (url) => {
 };
 export const updateProductService = async (id, data, files) => {
   try {
-    console.log(files);
-
     // Fetch the existing product to handle old images
     const existingProduct = await productRepository.getById(id);
     if (!existingProduct) {
@@ -127,8 +123,6 @@ export const updateProductService = async (id, data, files) => {
       product: updates
     };
   } catch (error) {
-    console.log(error);
-
     throw new ValidationError(error.message);
   }
 };
@@ -137,7 +131,6 @@ export const deleteProductService = async (id) => {
   try {
     // Fetch the product to delete its associated images
     const product = await productRepository.getById(id);
-    console.log(product);
     if (!product) {
       throw new ValidationError('Product not found');
     }

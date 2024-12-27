@@ -1,8 +1,7 @@
-// import { instance } from '../index.js';
-
 import Cart from '../models/Cart.js';
 import Product from '../models/Product.js';
 import User from '../models/User.js';
+// import { instance } from '../index.js';
 import { curdRepository } from './curdRepository.js';
 
 export const cartRepository = {
@@ -80,8 +79,6 @@ export const cartRepository = {
 
   checkoutCartRepository: async (cartId, data) => {
     try {
-      console.log('data', data);
-
       const cart = await Cart.findById(cartId);
       if (!cart) {
         throw new Error('Cart not found');
@@ -93,9 +90,6 @@ export const cartRepository = {
         const cartProductIndex = cart.products.findIndex(
           (product) => product.productId.toString() === item.productId
         );
-
-        console.log('cartProductIndex', cartProductIndex);
-        console.log('item', item);
 
         if (!updatedProducts.has(item.productId)) {
           updatedProducts.add(item.productId);

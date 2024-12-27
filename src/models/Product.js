@@ -20,7 +20,7 @@ const ProductSchema = new mongoose.Schema(
     packetQuantity: {
       type: Number,
       required: true
-    },
+    }, // packet quantity as quantity in productdetail table and also add packetunit with packet quantity suppose packet quantity is 200 and unit of packet is gram then out put in data table like 200gram
     soldPackets: {
       type: Number,
       default: 0

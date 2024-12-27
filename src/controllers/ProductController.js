@@ -1,5 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
-
 import {
   addStockQuantityService,
   createProductService,
@@ -12,6 +10,7 @@ import {
   errorResponse,
   successResponse
 } from '../utils/customResponses/customResponses.js';
+import { StatusCodes } from 'http-status-codes';
 
 export const createProductController = async (req, res) => {
   try {
@@ -20,14 +19,6 @@ export const createProductController = async (req, res) => {
       ? req.files['thumbnail'][0].path
       : null;
     const detailedImages = req.files['detailedImages'].map((file) => file.path);
-    console.log(
-      'Thumbnail',
-      thumbnail,
-      'DetailedImgs',
-      detailedImages,
-      'Data',
-      req.body
-    );
 
     if (!thumbnail) {
       return res
@@ -60,7 +51,6 @@ export const createProductController = async (req, res) => {
 export const getAllProductsPaginatedController = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
-    console.log(req.query);
 
     const products = await getAllProductsService(page, limit, req.query);
     return successResponse(
@@ -184,8 +174,6 @@ export const addStockQuantityController = async (req, res) => {
       product
     );
   } catch (error) {
-    console.log('Controller', error);
-
     return errorResponse(
       res,
       error,

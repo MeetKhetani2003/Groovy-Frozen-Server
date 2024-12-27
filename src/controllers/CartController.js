@@ -6,7 +6,6 @@ import {
 
 export const addProductToCartController = async (req, res) => {
   try {
-    console.log(req.user);
     const userId = req.user._id || req.user.user._id;
 
     if (!userId) {
@@ -17,8 +16,6 @@ export const addProductToCartController = async (req, res) => {
     }
     const { productId } = req.params; // Extract productId correctly
     const { quantity } = req.body;
-
-    console.log(productId, quantity);
 
     if (!productId || !quantity) {
       return res.status(400).json({
@@ -39,8 +36,6 @@ export const addProductToCartController = async (req, res) => {
       cart: updatedCart
     });
   } catch (error) {
-    console.log(error);
-
     console.error('Error adding product to cart:', error.message);
     res.status(500).json({
       success: false,
@@ -58,7 +53,6 @@ export const checkoutCartController = async (req, res) => {
         message: 'Cart ID is required.'
       });
     }
-    console.log(req.body, cartId);
 
     const result = await checkoutCartService(cartId, req.body);
 

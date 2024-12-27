@@ -1,5 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
-
 import {
   forgotPassword,
   getAllUsersService,
@@ -13,6 +11,8 @@ import {
   errorResponse,
   successResponse
 } from '../utils/customResponses/customResponses.js';
+import { StatusCodes } from 'http-status-codes';
+
 import ValidationError from '../utils/Errors/validationError.js';
 
 export const signupController = async (req, res) => {
@@ -26,8 +26,6 @@ export const signupController = async (req, res) => {
     );
   } catch (error) {
     if (error instanceof ValidationError) {
-      console.log('Controller', error.message);
-
       return res.status(error.statusCode).json({
         success: false,
         message: error.message,
@@ -102,14 +100,11 @@ export const forgotPasswordController = async (req, res) => {
 export async function verifyOtpController(req, res) {
   try {
     const result = await verifyOtp(req.body);
-    console.log(result);
 
     return res
       .status(200)
       .json({ message: 'OTP verified successfully', data: result });
   } catch (err) {
-    console.log(err);
-
     return res.status(500).json({ error: err.message });
   }
 }
@@ -138,7 +133,6 @@ export const updateUserController = async (req, res) => {
   try {
     const id = req.user.user._id || req.user._id;
     const updatedUser = await updateUserService(id, req.body);
-    console.log(id, req.body);
 
     return successResponse(
       res,

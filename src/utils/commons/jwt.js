@@ -16,7 +16,6 @@ export const generateToken = (data) => {
   }
 
   // Log the data to debug
-  console.log('Data for token generation:', plainData);
 
   // Generate the token
   const token = jwt.sign(plainData, VariablesConfig.JWT_SECRET, {
