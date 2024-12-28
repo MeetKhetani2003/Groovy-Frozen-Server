@@ -1,17 +1,18 @@
-import {
-  facebook,
-  google,
-  VariablesConfig
-} from '../configs/variablesConfig.js';
+import 'dotenv/config';
+
 import session from 'express-session';
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
 import GoogleStrategy from 'passport-google-oauth20';
 
-import 'dotenv/config';
-import { generateToken } from '../utils/commons/jwt.js';
+import {
+  facebook,
+  google,
+  VariablesConfig
+} from '../configs/variablesConfig.js';
 import { userRepository } from '../repositories/userRepository.js'; // Assume you have a repository for DB operations
 import { createCart, updateCartUser } from '../services/cartService.js';
+import { generateToken } from '../utils/commons/jwt.js';
 
 export const initPassport = (app) => {
   app.use(
