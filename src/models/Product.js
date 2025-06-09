@@ -48,11 +48,11 @@ const ProductSchema = new mongoose.Schema(
     },
     thumbnail: {
       type: String,
-      // required: true
+      required: true
     },
     detailedImages: {
       type: [String],
-      // required: true
+      required: true
     },
     packagingType: {
       type: String,
