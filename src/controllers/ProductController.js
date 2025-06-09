@@ -16,10 +16,10 @@ import {
 export const createProductController = async (req, res) => {
   try {
     const data = req.body;
-    const thumbnail = req.files['thumbnail']
-      ? req.files['thumbnail'][0].path
-      : null;
-    const detailedImages = req.files['detailedImages'].map((file) => file.path);
+    // const thumbnail = req.files['thumbnail']
+      // ? req.files['thumbnail'][0].path
+      // : null;
+    // const detailedImages = req.files['detailedImages'].map((file) => file.path);
 
     // if (!thumbnail) {
     //   return res
