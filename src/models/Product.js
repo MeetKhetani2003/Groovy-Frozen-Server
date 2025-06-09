@@ -15,7 +15,7 @@ const ProductSchema = new mongoose.Schema(
     stockUnit: {
       type: String,
       required: true,
-      enum: ['gram', 'kg', 'piece', 'packet', 'box']
+      // enum: ['gram', 'kg', 'piece', 'packet', 'box',]
     },
     packetQuantity: {
       type: Number,
@@ -28,7 +28,7 @@ const ProductSchema = new mongoose.Schema(
     packetUnit: {
       type: String,
       required: true,
-      enum: ['gram', 'kg', 'piece', 'packet', 'box']
+      // enum: ['gram', 'kg', 'piece', 'packet', 'box']
     },
     packetPrice: {
       type: Number,
