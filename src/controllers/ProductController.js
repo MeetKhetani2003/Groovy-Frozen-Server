@@ -29,8 +29,8 @@ export const createProductController = async (req, res) => {
 
     const productData = {
       ...data,
-      thumbnail,
-      detailedImages
+      // thumbnail,
+      // detailedImages
     };
 
     const product = await createProductService(productData);
