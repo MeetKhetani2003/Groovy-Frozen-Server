@@ -21,11 +21,11 @@ export const createProductController = async (req, res) => {
       : null;
     const detailedImages = req.files['detailedImages'].map((file) => file.path);
 
-    if (!thumbnail) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'Thumbnail is required' });
-    }
+    // if (!thumbnail) {
+    //   return res
+    //     .status(400)
+    //     .json({ success: false, message: 'Thumbnail is required' });
+    // }
 
     const productData = {
       ...data,
