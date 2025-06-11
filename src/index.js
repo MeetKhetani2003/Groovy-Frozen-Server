@@ -5,12 +5,12 @@ import Razorpay from 'razorpay';
 
 import { connectDB } from './configs/dbConfig.js';
 import { VariablesConfig } from './configs/variablesConfig.js';
-import { initPassport } from './middlewares/passport.js';
+// import { initPassport } from './middlewares/passport.js';
 import apiRouter from './routers/apiRouter.js';
 
 const app = express();
 
-initPassport(app);
+// initPassport(app);
 app.use(cors());
 export const instance = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,

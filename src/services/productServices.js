@@ -1,6 +1,8 @@
+import mongoose from 'mongoose';
+
+import ValidationError from '../utils/Errors/validationError.js';
 import { cloudinaryInstance } from '../configs/cloudinaryConfig.js';
 import { productRepository } from '../repositories/productRepository.js';
-import ValidationError from '../utils/Errors/validationError.js';
 
 export const createProductService = async (data) => {
   try {
@@ -78,6 +80,15 @@ const extractPublicId = (url) => {
 };
 export const updateProductService = async (id, data, files) => {
   try {
+    // Validate ID format
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      throw new ValidationError('Invalid product ID');
+    }
+
+    console.log('updateProductService - ID:', id); // Debug log
+    console.log('updateProductService - Data:', data); // Debug log
+    console.log('updateProductService - Files:', files); // Debug log
+
     // Fetch the existing product to handle old images
     const existingProduct = await productRepository.getById(id);
     if (!existingProduct) {
@@ -94,7 +105,7 @@ export const updateProductService = async (id, data, files) => {
         await cloudinaryInstance.uploader.destroy(publicId);
       }
       // Save new thumbnail URL
-      updates.thumbnail = files.thumbnail[0].path; // Cloudinary auto-generates the URL
+      updates.thumbnail = files.thumbnail[0].path;
     }
 
     // Handle detailed images update
@@ -109,18 +120,19 @@ export const updateProductService = async (id, data, files) => {
         );
       }
       // Save new detailed images URLs
-      updates.detailedImages = files.detailedImages.map((file) => file.path); // Cloudinary auto-generates URLs
+      updates.detailedImages = files.detailedImages.map((file) => file.path);
     }
 
     // Update the product in the database
+    console.log('Calling updateById with ID:', id, 'Updates:', updates); // Debug log
     const updatedProduct = await productRepository.updateById(id, updates);
     return {
       success: true,
       message: 'Product updated successfully',
-      product: updatedProduct,
+      product: updatedProduct
     };
   } catch (error) {
-    console.error('Error in updateProductService:', error); // Add logging for debugging
+    console.error('Error in updateProductService:', error);
     throw new ValidationError(error.message);
   }
 };

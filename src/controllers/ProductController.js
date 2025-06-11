@@ -1,5 +1,4 @@
-import { StatusCodes } from 'http-status-codes';
-
+/* eslint-disable no-undef */
 import {
   addStockQuantityService,
   createProductService,
@@ -12,6 +11,8 @@ import {
   errorResponse,
   successResponse
 } from '../utils/customResponses/customResponses.js';
+import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
 
 export const createProductController = async (req, res) => {
   try {
@@ -112,14 +113,30 @@ export const getSingleProductController = async (req, res) => {
 
 export const updateProductController = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    // Validate the ID
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return errorResponse(
+        res,
+        null,
+        StatusCodes.BAD_REQUEST,
+        'Bad Request',
+        'Invalid or missing product ID'
+      );
+    }
+
+    // Log for debugging
+    console.log('Request params:', req.params);
+    console.log('Request body:', req.body);
+    console.log('Request files:', req.files);
+
+    // Handle case where no files are provided
     if (!req.files || (!req.files.thumbnail && !req.files.detailedImages)) {
       console.warn('No files provided in updateProductController');
     }
-    const product = await updateProductService(
-      req.params.id,
-      req.body,
-      req.files
-    );
+
+    const product = await updateProductService(id, req.body, req.files || {});
     return successResponse(
       res,
       StatusCodes.OK,
@@ -127,10 +144,11 @@ export const updateProductController = async (req, res) => {
       product
     );
   } catch (error) {
+    console.error('Error in updateProductController:', error);
     return errorResponse(
       res,
       error,
-      500,
+      StatusCodes.INTERNAL_SERVER_ERROR,
       'Internal Server Error',
       'An unexpected error occurred'
     );
