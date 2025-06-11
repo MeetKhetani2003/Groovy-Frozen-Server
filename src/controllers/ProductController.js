@@ -112,6 +112,9 @@ export const getSingleProductController = async (req, res) => {
 
 export const updateProductController = async (req, res) => {
   try {
+    if (!req.files || (!req.files.thumbnail && !req.files.detailedImages)) {
+      console.warn('No files provided in updateProductController');
+    }
     const product = await updateProductService(
       req.params.id,
       req.body,
