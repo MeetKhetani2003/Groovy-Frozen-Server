@@ -87,7 +87,7 @@ export const updateProductService = async (id, data, files) => {
     const updates = { ...data };
 
     // Handle thumbnail update
-    if (files.thumbnail && files.thumbnail[0]) {
+    if (files?.thumbnail?.[0]) {
       // Delete the existing thumbnail
       if (existingProduct.thumbnail) {
         const publicId = extractPublicId(existingProduct.thumbnail);
@@ -98,12 +98,9 @@ export const updateProductService = async (id, data, files) => {
     }
 
     // Handle detailed images update
-    if (files.detailedImages && files.detailedImages.length > 0) {
+    if (files?.detailedImages?.length > 0) {
       // Delete existing detailed images
-      if (
-        existingProduct.detailedImages &&
-        existingProduct.detailedImages.length > 0
-      ) {
+      if (existingProduct.detailedImages?.length > 0) {
         await Promise.all(
           existingProduct.detailedImages.map((imgUrl) => {
             const publicId = extractPublicId(imgUrl);
@@ -116,17 +113,17 @@ export const updateProductService = async (id, data, files) => {
     }
 
     // Update the product in the database
-    await productRepository.updateById(id, updates);
+    const updatedProduct = await productRepository.updateById(id, updates);
     return {
       success: true,
       message: 'Product updated successfully',
-      product: updates
+      product: updatedProduct,
     };
   } catch (error) {
+    console.error('Error in updateProductService:', error); // Add logging for debugging
     throw new ValidationError(error.message);
   }
 };
-
 export const deleteProductService = async (id) => {
   try {
     // Fetch the product to delete its associated images
