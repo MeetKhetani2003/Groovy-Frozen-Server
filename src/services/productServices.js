@@ -168,3 +168,11 @@ export const deleteProductService = async (id) => {
     throw new ValidationError(error.message);
   }
 };
+export const getUniqueCategoriesService = async () => {
+  try {
+    const categories = await productRepository.getUniqueCategories();
+    return categories;
+  } catch (error) {
+    throw new ValidationError(error.message);
+  }
+};

@@ -1,10 +1,10 @@
-/* eslint-disable no-undef */
 import {
   addStockQuantityService,
   createProductService,
   deleteProductService,
   getAllProductsService,
   getSingleProductService,
+  getUniqueCategoriesService,
   updateProductService
 } from '../services/productServices.js';
 import {
@@ -202,6 +202,26 @@ export const addStockQuantityController = async (req, res) => {
       500,
       'Internal Server Error',
       'An unexpected error occurred'
+    );
+  }
+};
+
+export const getUniqueCategoriesController = async (req, res) => {
+  try {
+    const categories = await getUniqueCategoriesService();
+    return successResponse(
+      res,
+      StatusCodes.OK,
+      'Categories fetched successfully',
+      { categories }
+    );
+  } catch (error) {
+    return errorResponse(
+      res,
+      error,
+      StatusCodes.INTERNAL_SERVER_ERROR,
+      'Internal Server Error',
+      'Failed to fetch categories'
     );
   }
 };

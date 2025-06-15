@@ -1,6 +1,3 @@
-import express from 'express';
-
-import upload from '../../configs/multerConfig.js'; // Adjust the path as necessary
 import {
   addStockQuantityController,
   createProductController,
@@ -8,8 +5,12 @@ import {
   getAllProductsController,
   getAllProductsPaginatedController,
   getSingleProductController,
+  getUniqueCategoriesController,
   updateProductController
 } from '../../controllers/ProductController.js'; // Adjust the path as necessary
+import express from 'express';
+
+import upload from '../../configs/multerConfig.js'; // Adjust the path as necessary
 
 const app = express.Router();
 
@@ -21,6 +22,7 @@ const uploadFields = upload.fields([
 app.post('/create', uploadFields, createProductController);
 app.get('/getall', getAllProductsController);
 app.get('/', getAllProductsPaginatedController);
+app.get('/categories', getUniqueCategoriesController);
 app.get('/get/:id', getSingleProductController);
 app.put('/update/:id', uploadFields, updateProductController);
 app.put('/addStock/:id', addStockQuantityController);

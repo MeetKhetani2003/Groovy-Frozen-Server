@@ -78,7 +78,9 @@ export const productRepository = {
     product.stockQuantity += quantity;
     await product.save();
     return product;
+  },
+  getUniqueCategories: async () => {
+    const categories = await Product.distinct('category');
+    return ['All Categories', ...categories.filter(Boolean)];
   }
 };
-
-
